@@ -109,5 +109,106 @@ equip_price_data = [# Equipment name        Crane capacity tonne        Equipmen
 equip_price = pd.DataFrame(equip_data, columns=equip_columns)
 sam_defaults['equip'] = equip_price
 
+crew_price_columns = ['Labor type ID' , 'Hourly rate USD per hour' , 'Per diem USD per day']
+crew_price_data = [ # Labor type ID'        ,   Hourly rate USD per hour    ,   Per diem USD per day
+                    ['Crane operator'       ,   '99.0'                      ,   '99'],
+                    ['Oiler'                ,   '99.0'                      ,   '99'],
+                    ['Rigger'               ,   '99.0'                      ,   '99'],
+                    ['Truck driver'         ,   '99.0'                      ,   '99'],
+                    ['Iron worker'          ,   '99.0'                      ,   '99'],
+                    ['Project manager'      ,   '99.0'                      ,   '99'],
+                    ['Site manager'         ,   '99.0'                      ,   '99'],
+                    ['Construction manager' ,   '99.0'                      ,   '99'],
+                    ['Project engineer'     ,   '99.0'                      ,   '99'],
+                    ['Safety or qc manager' ,   '99.0'                      ,   '99'],
+                    ['Logistics manager'    ,   '99.0'                      ,   '99'],
+                    ['Rigger foreman'       ,   '99.0'                      ,   '99'],
+                    ['Rigger'               ,   '99.0'                      ,   '99'],
+                    ['Operator'             ,   '99.0'                      ,   '99'],
+                    ['Oiler'                ,   '99.0'                      ,   '99'],
+                    ['Electrician'          ,   '99.0'                      ,   '99'],
+                    ['Tool room'            ,   '99.0'                      ,   '99'],
+                    ['QC/QA tech'           ,   '99.0'                      ,   '99'],
+                    ['Office admin'         ,   '99.0'                      ,   '99'],
+                    ['RSMeans'              ,   'NaN'                       ,   '99']]
+
+crew_price = pd.DataFrame(crew_price_data, columns=crew_price_columns)
+sam_defaults['crew_price'] = crew_price
+
+material_price_columns = ['Material type ID',  'Material price USD per unit' , 'Unit'  ,'Notes']
+material_price_data =[# 'Material type ID',                         'Material price USD per unit'           'Unit'                          ,   'Notes'
+                        ['unique identifier for the material'   ,   'price of material per unit'        ,   'unit of measure used for cost' ,   'NaN'],
+                        ['Concrete 3000 psi'                    ,   '99'                                ,   'cubic yard'                    ,   ''],
+                        ['Concrete 5000 psi'                    ,   '99'                                ,   'cubic yard'                    ,   ''],
+                        ['Concrete 8000 psi'                    ,   '99'                                ,   'cubic yard'                    ,   ''],
+                        ['Steel - rebar'                        ,   '99'                                ,   'ton (short)'                   ,   ''],
+                        ['Road base - 3/4 inch crushed stone'   ,   '99'                                ,   'Loose cubic yard'              ,   ''],
+                        ['Excavated dirt'                       ,   '0'                                 ,   'cubic yard'                    ,   'NaN'],
+                        ['Backfill'                             ,   '0'                                 ,   'cubic yard'                    ,   'NaN']]
+
+material_price = pd.DataFrame(material_price_data, columns=material_price_columns)
+sam_defaults['material_price'] = material_price
 
 
+components_columns = ['Component', 'Mass tonne', 'Lift height m', 'Surface area sq m', 'Coeff drag', 'Coeff drag (installed)', 'Section height m', 'Lever arm m', 'Cycle time installation hrs', 'Offload hook height m', 'Offload cycle time hrs', 'Multplier drag rotor', 'Multiplier tower drag', 'Operation']
+components_data = [#  Component                ,   Mass tonne  ,    Lift height m   ,   Surface area sq m  ,   Coeff drag  ,   Coeff drag (installed)  ,   Section height m    ,   Lever arm m     ,   Cycle time installation hrs ,   Offload hook height m   ,   Offload cycle time hrs  ,   Multplier drag rotor    ,   Multiplier tower drag Operation
+                    ['IEA 3.6-130 Bedplate'    ,   '80'        ,    '82'            ,   '32.00'            ,   '0.7'       ,   '0.7'                   ,   '0'                 ,   '85.0'          ,   '2'                         ,   '6'                     ,   '0.5'                   ,   '1.000000'              ,   '0'                     ,    'Top'],
+                    ['IEA 3.6-130 Drivetrain'  ,   '80'        ,    '86'            ,   '20.00'            ,   '0.9'       ,   '0.9'                   ,   '0'                 ,   '85.0'          ,   '2'                         ,   '6'                     ,   '0.5'                   ,   '0.000000'              ,   '0'                     ,    'Top'],
+                    ['Hub'                     ,   '35'        ,    '85'            ,   '12.16'            ,   '1.1'       ,   '1.1'                   ,   '0'                 ,   '85.0'          ,   '1'                         ,   '6'                     ,   '0.5'                   ,   '0.000000'              ,   '0'                     ,    'Top'],
+                    ['Blade 1'                 ,   '17'        ,    '85'            ,   '68.80'            ,   '0.1'       ,   '1.4'                   ,   '0'                 ,   '85.0'          ,   '1'                         ,   '6'                     ,   '0.5'                   ,   '0.666667'              ,   '0'                     ,    'Top'],
+                    ['Blade 2'                 ,   '17'        ,    '85'            ,   '68.80'            ,   '0.1'       ,   '1.4'                   ,   '0'                 ,   '85.0'          ,   '1'                         ,   '6'                     ,   '0.5'                   ,   '0.666667'              ,   '0'                     ,    'Top'],
+                    ['Blade 3'                 ,   '17'        ,    '85'            ,   '68.80'            ,   '0.1'       ,   '1.4'                   ,   '0'                 ,   '85.0'          ,   '1'                         ,   '6'                     ,   '0.5'                   ,   '0.666667'              ,   '0'                     ,    'Top'],
+                    ['Tower section 1'         ,   '65'        ,    '20'            ,   '85.00'            ,   '0.6'       ,   '1.1'                   ,   '20'                ,   '10.0'          ,   '1'                         ,   '6'                     ,   '0.5'                   ,   '0.000000'              ,   '1'                     ,   'Base'],
+                    ['Tower section 2'         ,   '55'        ,    '40'            ,   '85.00'            ,   '0.6'       ,   '1.1'                   ,   '20'                ,   '30.0'          ,   '1'                         ,   '6'                     ,   '0.5'                   ,   '0.000000'              ,   '1'                     ,   'Base'],
+                    ['Tower section 3'         ,   '45'        ,    '60'            ,   '85.00'            ,   '0.6'       ,   '1.1'                   ,   '20'                ,   '50.0'          ,   '1'                         ,   '6'                     ,   '0.5'                   ,   '0.000000'              ,   '1'                     ,   'Base'],
+                    ['Tower section 4'         ,   '40'        ,    '85'            ,   '90.00'            ,   '0.6'       ,   '1.1'                   ,   '25'                ,   '72.5'          ,   '1'                         ,   '6'                     ,   '0.5'                   ,   '0.000000'              ,   '1'                     ,    'Top']]
+
+components = pd.DataFrame(components_data, columns=components_columns)
+sam_defaults['components'] = components
+
+
+rsmeans_columns =
+rsmeans_data = [
+                        #Operation ID                                       ,   Type of cost        ,       Material type ID  Rate USD per unit                         Units  Daily output  Per Diem Hours (per unit)       Module  Number of workers                                              Notes
+                        ['Concrete placement'                               ,   'Equipment rental'  ,       'Concrete 5000 psi'               99.0                  $/cubic yard           NaN                        NaN  Foundations                NaN  Source RSMeans 2016 - C-20 crew, includes pump...
+                        ['Rebar installation'                               ,   'Equipment rental'  ,       'Steel - rebar'               99.0                 $/ton (short)           NaN                        NaN  Foundations                NaN  Source RSMeans 2016 - 4 Rodm crew, includes la...
+                        ['Survey'                                           ,   'Equipment rental'  ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Clear and grub'                                   ,   'Equipment rental'  ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Topsoil stripping and stockpiling'                ,   'Equipment rental'  ,       'NaN'               99.0                    cubic yard           NaN                       99.0        Roads               99.0  RSMeans 31 14 13 0100 200hp dozer adverse cond...
+                        ['Stormwater pollution prevention'                  ,   'Equipment rental'  ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Culverts'                                         ,   'Equipment rental'  ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Compaction of soil (subgrade and crane path)'     ,   'Equipment rental'  ,       'NaN'               99.0  embankment cubic yards crane           NaN                       99.0        Roads               99.0                         RSMeans 31 23.24 0300 B10G
+                        ['Mass material movement (cut and fill)'            ,   'Equipment rental'  ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Placing road base (hauling)'                      ,   'Equipment rental'  ,       'Road base - 3/4 inch crushed stone'               99.0              loose cubic yard           NaN                       99.0        Roads               99.0    RSMeans 31 23.23 9034 B34B 20 MPH cycle 6 miles
+                        ['Rough grading road base'                          ,   'Equipment rental'  ,       'NaN'               99.0     Each (100000 square feet)           NaN                       99.0        Roads               99.0                           RSMeans 31 22 13.20 B11L
+                        ['Compacting road base'                             ,   'Equipment rental'  ,       'NaN'               99.0   embankment cubic yards road           NaN                       99.0        Roads               99.0                         RSMeans 31 23.24 0300 B10G
+                        ['Final grading'                                    ,   'Equipment rental'  ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Road maintanance'                                 ,   'Equipment rental'  ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Decompaction of crane paths'                      ,   'Equipment rental'  ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Reseeding, planting, etc'                         ,   'Equipment rental'  ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Concrete placement'                               ,   'Labor'             ,       'Concrete 5000 psi'               99.0                  $/cubic yard          99.0                        NaN  Foundations               99.0  Source RSMeans 2016 - C-20 crew, includes pump...
+                        ['Rebar installation'                               ,   'Labor'             ,       'Steel - rebar'               99.0                 $/ton (short)          99.0                        NaN  Foundations               99.0  Source RSMeans 2016 - 4 Rodm crew, includes la...
+                        ['Survey'                                           ,   'Labor'             ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Clear and grub'                                   ,   'Labor'             ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Topsoil stripping and stockpiling'                ,   'Labor'             ,       'NaN'               99.0                    cubic yard          99.0                       99.0        Roads               99.0  RSMeans 31 14 13 0100 200hp dozer adverse cond...
+                        ['Stormwater pollution prevention'                  ,   'Labor'             ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Culverts'                                         ,   'Labor'             ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Compaction of soil (subgrade and crane path)'     ,   'Labor'             ,       'NaN'               99.0  embankment cubic yards crane          99.0                       99.0        Roads               99.0                         RSMeans 31 23.24 0300 B10G
+                        ['Mass material movement (cut and fill)'            ,   'Labor'             ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Placing road base (hauling)'                      ,   'Labor'             ,       'Road base - 3/4 inch crushed stone'               99.0              loose cubic yard          99.0                       99.0        Roads               99.0    RSMeans 31 23.23 9034 B34B 20 MPH cycle 6 miles
+                        ['Rough grading road base'                          ,   'Labor'             ,       'NaN'               99.0     Each (100000 square feet)          99.0                       99.0        Roads               99.0                           RSMeans 31 22 13.20 B11L
+                        ['Compacting road base'                             ,   'Labor'             ,       'NaN'               99.0   embankment cubic yards road          99.0                       99.0        Roads               99.0                         RSMeans 31 23.24 0300 B10G
+                        ['Final grading'                                    ,   'Labor'             ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Road maintanance'                                 ,   'Labor'             ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Decompaction of crane paths'                      ,   'Labor'             ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Reseeding, planting, etc'                         ,   'Labor'             ,       'NaN'                NaN                           NaN           NaN                        NaN        Roads                NaN                                                NaN
+                        ['Excavation'                                       ,   'Equipment rental'                             Excavated dirt               99.0                  $/cubic yard           NaN                        NaN  Foundations                NaN                                                NaN
+                        ['Excavation'                                       ,   'Labor'                             Excavated dirt               99.0                  $/cubic yard          99.0                       99.0  Foundations               99.0                           one operator one laborer
+                        ['Backfill'                                         ,   'Equipment rental'                                   Backfill               99.0                  $/cubic yard           NaN                        NaN  Foundations                NaN                                                NaN
+                        ['Backfill'                                         ,   'Labor'                                   Backfill               99.0                  $/cubic yard          99.0                       99.0  Foundations               99.0   operator, half labourer, small dozer, sheepsfoot
+                        ['Collection'                                       ,   'Labor'                                        NaN               99.0                         $/hr           99.0                       99.0   Collection               99.0            0.25 foreman 1 equipment operator (med)
+                        ['Collection'                                       ,   'Equipment'                                        NaN               99.0                         $/hr           99.0                       99.0   Collection                NaN            150hp wheel trencher rsmeans crew B-54B
+                        ['Collection'                                       ,   'Labor'                 ,'dozer operator and .5 laborer cable reels'               99.0                         $/hr            NaN                       99.0   Collection               99.0             0.5 foreman 1 equipment operator (med)
+                        ['Collection'                                       ,   'Equipment'         ,   '200 hp dozer cable reels'               99.0                         $/hr            NaN                       99.0   Collection                NaN                             Crew B-10B 200hp dozer
+                        ['Collection'                                       ,   'Labor'             ,   'Forklift Operator'               99.0                         $/hr            NaN                       99.0   Collection               99.0                             1 equip operator light
+                        ['Collection'                                       ,   'Equipment'         ,   'all terrain fork lift for reel changes'               99.0                         $/hr            NaN                       99.0   Collection                NaN                                          Crew A-3P]]
