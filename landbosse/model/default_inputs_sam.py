@@ -238,3 +238,23 @@ development_df_data = [
 
 development_df = pd.DataFrame(development_df_data, columns=development_df_columns)
 sam_defaults['development_df'] = development_df
+
+sam_defaults['project_id']= 'project_1',
+sam_defaults['num_turbines']= 100
+sam_defaults['construct_duration']: 9
+sam_defaults['hub_height_meters']: 80
+sam_defaults['rotor_diameter_m']: 77
+sam_defaults['wind_shear_exponent']: 0.2
+sam_defaults['turbine_rating_MW']: 1.5
+sam_defaults['breakpoint_between_base_and_topping_percent']: 0.8
+sam_defaults['fuel_usd_per_gal']: 1.5
+sam_defaults['rate_of_deliveries']: 10
+sam_defaults['turbine_spacing_rotor_diameters']: 4
+sam_defaults['depth']: 2.36
+sam_defaults['rated_thrust_N']: 589000
+sam_defaults['bearing_pressure_n_m2']: 191521
+sam_defaults['gust_velocity_m_per_s']: 59.5
+sam_defaults['project_size_megawatts']: 150.0
+sam_defaults['road_length_adder_m']: 5000
+sam_defaults['fraction_new_roads']: 0.33
+sam_defaults['road_quality']: 0.6
