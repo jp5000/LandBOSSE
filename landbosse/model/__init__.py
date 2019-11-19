@@ -9,3 +9,4 @@ from .GridConnectionCost import GridConnectionCost
 from .CollectionCost import Cable, Array, ArraySystem
 from .DevelopmentCost import DevelopmentCost
 from .DefaultMasterInputDict import DefaultMasterInputDict
+from .default_inputs_sam import DefaultMasterInputDictSAM

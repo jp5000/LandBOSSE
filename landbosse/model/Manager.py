@@ -1,6 +1,7 @@
 import traceback
 import math
 
+
 from .ManagementCost import ManagementCost
 from .FoundationCost import FoundationCost
 from .SubstationCost import SubstationCost
@@ -9,6 +10,7 @@ from .SitePreparationCost import SitePreparationCost
 from .CollectionCost import Cable, Array, ArraySystem
 from .ErectionCost import ErectionCost
 from .DevelopmentCost import DevelopmentCost
+from .default_inputs_sam import DefaultMasterInputDictSAM
 
 
 class Manager:
@@ -29,11 +31,16 @@ class Manager:
 
         self.output_dict: A placeholder for the output dictionary
         """
+
         self.input_dict = input_dict
         self.output_dict = output_dict
+        # with open('/Users/pbhaskar/Desktop/Projects/public_landbosse/input/master_inputs.txt', 'w') as f:
+        #     print(self.input_dict, file=f)
 
     def execute_landbosse(self, project_name):
         try:
+            foo = DefaultMasterInputDictSAM()
+            foo1 = foo.export_defaults_master_inputs()
             # Create weather window that will be used for all tasks (window for entire project; selected to restrict to seasons and hours specified)
             weather_data_user_input = self.input_dict['weather_window']
             season_construct = self.input_dict['season_construct']
@@ -46,7 +53,12 @@ class Manager:
 
             # Rename weather data to specify types
             self.input_dict['weather_window'] = filtered_weather_window
+            foo1['weather_window'] = filtered_weather_window
             self.input_dict['weather_data_user_input'] = weather_data_user_input
+            foo1['weather_data_user_input'] = weather_data_user_input
+
+            # compare_dict = self.input_dict.keys() - foo1.keys()
+            self.input_dict = foo1
 
             foundation_cost = FoundationCost(input_dict=self.input_dict, output_dict=self.output_dict, project_name=project_name)
             foundation_cost.run_module()
@@ -89,6 +101,7 @@ class Manager:
 
             management_cost = ManagementCost(input_dict=self.input_dict, output_dict=self.output_dict, project_name=project_name)
             management_cost.run_module()
+
 
             return 0
         except Exception:
