@@ -34,8 +34,7 @@ class Manager:
 
         self.input_dict = input_dict
         self.output_dict = output_dict
-        # with open('/Users/pbhaskar/Desktop/Projects/public_landbosse/input/master_inputs.txt', 'w') as f:
-        #     print(self.input_dict, file=f)
+
 
     def execute_landbosse(self, project_name):
         try:

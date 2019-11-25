@@ -419,7 +419,7 @@ class DefaultMasterInputDictSAM:
         self.sam_defaults['critical_height_non_erection_wind_delays_m']= 10
         self.sam_defaults['road_width_ft']= 20
         self.sam_defaults['road_thickness']= 8
-        self.sam_defaults['crane_width']= 12.2
+        self.sam_defaults['crane_width']= -12.2
         self.sam_defaults['num_hwy_permits']= 10
         self.sam_defaults['num_access_roads']= 2
         self.sam_defaults['overtime_multiplier']= 1.4
@@ -434,6 +434,8 @@ class DefaultMasterInputDictSAM:
         self.sam_defaults['hour_day']= {'long': 24, 'normal': 10}
         self.sam_defaults['operational_construction_time']= 10
         self.sam_defaults['operational_hrs_per_day']= 10
+
+
 
         self.project_data = dict()
         self.project_data['crane_specs'] = self.sam_defaults['crane_specs']
