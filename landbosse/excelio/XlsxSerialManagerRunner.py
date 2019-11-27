@@ -109,9 +109,13 @@ class XlsxSerialManagerRunner(XlsxManagerRunner):
             output_dict['project_series'] = project_parameters
             runs_dict[project_id_with_serial] = output_dict
 
+            # Extract the results for logging
+            costs_by_module_type_operation = self.extract_module_type_operation_lists_for_single_run(output_dict)
+            sqlite_log.insert_costs_by_module_type_operation(costs_by_module_type_operation)
+
         final_result = dict()
-        final_result['details_list'] = self.extract_details_lists(runs_dict)
-        final_result['module_type_operation_list'] = self.extract_module_type_operation_lists(runs_dict)
+        final_result['details_list'] = self.extract_details_lists_for_all_runs(runs_dict)
+        final_result['module_type_operation_list'] = self.extract_module_type_operation_lists_for_all_runs(runs_dict)
         final_result['extended_project_list'] = extended_project_list
 
         # Return the runs for all the projects.

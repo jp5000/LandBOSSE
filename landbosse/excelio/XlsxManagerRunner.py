@@ -64,10 +64,13 @@ class XlsxManagerRunner:
         """
         raise NotImplementedError('run_from_project_list_xlsx() can only be called on subclasses')
 
-    def extract_module_type_operation_lists(self, runs_dict):
+    def extract_module_type_operation_lists_for_all_runs(self, runs_dict):
         """
         This method extract all the cost_by_module_type_operation lists for
         output in an Excel file.
+
+        This is iterating over a final output dictionary of dictionaries
+        that has the results for all the runs of the model.
 
         It finds values for the keys ending in '_module_type_operation'. It
         then concatenates them
@@ -91,25 +94,28 @@ class XlsxManagerRunner:
                     result.extend(value)
         return result
 
-    def extract_details_lists(self, runs_dict):
+    def extract_details_lists_for_all_runs(self, runs_dict):
         """
-        This method extract all .csv lists from the OrderDict of runs to output
-        into an Excel or .csv file.
+        This is iterating over a final output dictionary of dictionaries
+        that has the results for all the runs of the model.
+
+        It extracts all the lists from all the runs to place into a final
+        output Excel file.
 
         It finds values for the keys ending in '_csv'. It then concatenates them
         together so they can be easily written to a .csv, .xlsx or other
-        columnar format. (The actual writing is left to other functions.
+        tabular format. (The actual writing is left to other functions.
 
         Parameters
         ----------
         runs_dict : dict
-            Values are the names of the projects. Keys are the lists of
+            Keys are the names of the projects. Values are the lists of
             dictionaries that are lines for the .csv
 
         Returns
         -------
         list
-            List of dicts to write to the .csv.
+            List of dicts to write to the .xlsx output.
         """
         runs_for_csv = []
         for project_results in runs_dict.values():
@@ -117,6 +123,36 @@ class XlsxManagerRunner:
                 if key.endswith('_csv'):
                     runs_for_csv.extend(value)
         return runs_for_csv
+
+    def extract_module_type_operation_lists_for_single_run(self, output_dict):
+        """
+        This extracts all the lists from a single run to be logged to file or
+        database.
+
+        It finds values for the keys ending in '_csv'. It then concatenates them
+        together so they can be easily written to a .csv, .xlsx or other
+        tabular format.
+
+        This method differs from extract_module_type_operation_lists_for_all_runs()
+        in that it only extracts values one level deep in the dictionary.
+
+        Parameters
+        ----------
+        output_dict : dict
+            This method is looking for keys that end with '_csv'. The values
+            of these keys are are the lists of costs by module, type and
+            operation. These values are concatenated into one list.
+
+        Returns
+        -------
+        list
+            List of dicts to write to the logging output
+        """
+        result = []
+        for key, value in output_dict.items():
+            if key.endswith('_module_type_operation'):
+                result.extend(value)
+        return result
 
     def read_project_and_parametric_list_from_xlsx(self):
         """

@@ -13,9 +13,8 @@ This module is for a very simple logging system with an SQLite database
 create_table_statements = [
     """
     CREATE TABLE IF NOT EXISTS costs_by_module_type_operation(    
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
         project_id_with_serial TEXT,
-        number_of_turbines INTEGER,
+        num_turbines INTEGER,
         turbine_rating_mw REAL,
         module TEXT,
         operation_id TEXT,
@@ -98,6 +97,43 @@ class SqliteLogger:
                     conn.execute(create_table_statement)
         except sqlite3.Error as e:
             raise SqliteLoggerException(f'SqliteLogger: Could not create database and tables at {self.db_filename}')
+        finally:
+            if conn is not None:
+                conn.close()
+
+    def insert_costs_by_module_type_operation(self, rows):
+        """
+        This method must be called after the create_tables() method is called.
+        It requires the tables created in create_tables() to be present for
+        data to be inserted into them.
+
+        Parameters
+        ----------
+        rows : list [dict]
+            This is a list of dictionaries, with each dictionary being a row
+            to write into the actual database table.
+
+        Raises
+        ------
+        SqliteLoggerException
+            This exception is raised if there are sqlite errors when the insert
+            is attempted.
+        """
+        insert_statement = """INSERT INTO costs_by_module_type_operation VALUES(
+            :project_id_with_serial, :num_turbines, 
+            :turbine_rating_MW, :module, :operation_id, 
+            :type_of_cost, :cost_per_turbine, 
+            :cost_per_project, :usd_per_kw_per_project
+            )"""
+        conn = None
+        try:
+            conn = sqlite3.connect(self.db_filename)
+            with conn:
+                cursor = conn.cursor()
+                for row in rows:
+                    cursor.execute(insert_statement, row)
+        except sqlite3.Error as e:
+            raise SqliteLoggerException(f'SqliteLogger: Could not insert into table costs_by_module_type_operation in {self.db_filename}')
         finally:
             if conn is not None:
                 conn.close()

@@ -98,8 +98,8 @@ class XlsxParallelManagerRunner(XlsxManagerRunner):
         # Assemble the dictionary with content for the details, details with inputs,
         #  cost_by_module_type_operation and cost_by_module_type_operation_with_input tabs
         final_result = dict()
-        final_result['details_list'] = self.extract_details_lists(runs_dict)
-        final_result['module_type_operation_list'] = self.extract_module_type_operation_lists(runs_dict)
+        final_result['details_list'] = self.extract_details_lists_for_all_runs(runs_dict)
+        final_result['module_type_operation_list'] = self.extract_module_type_operation_lists_for_all_runs(runs_dict)
         final_result['extended_project_list'] = extended_project_list
 
         # Return the runs for all the scenarios.
