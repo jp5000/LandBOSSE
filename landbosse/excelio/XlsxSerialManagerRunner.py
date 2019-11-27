@@ -4,6 +4,7 @@ import os
 import pandas as pd
 
 from ..model import Manager
+from ..db import SqliteLogger, SqliteLoggerException
 from .XlsxFileOperations import XlsxFileOperations
 from .XlsxReader import XlsxReader
 from .XlsxManagerRunner import XlsxManagerRunner
@@ -55,8 +56,15 @@ class XlsxSerialManagerRunner(XlsxManagerRunner):
         # Get the output dictionary ready
         runs_dict = OrderedDict()
 
-        # Instantiate and XlsxReader to assemble master input dictionary
+        # Instantiate an XlsxReader to assemble master input dictionaries
         xlsx_reader = XlsxReader()
+
+        # Make a logging database. If it fails, don't catch the exception.
+        # Let Python end the program and print the stacktrace of the
+        # SqliteLoggerException.
+        sqlite_log_filename = file_ops.sqlite_log_filename()
+        sqlite_log = SqliteLogger(sqlite_log_filename)
+        sqlite_log.create_tables()
 
         # Loop over every project
         for _, project_parameters in extended_project_list.iterrows():

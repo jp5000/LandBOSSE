@@ -1,5 +1,7 @@
 import sqlite3
 
+from .SqliteLoggerException import SqliteLoggerException
+
 """
 This module is for a very simple logging system with an SQLite database
 """
@@ -46,19 +48,6 @@ create_table_statements = [
 ]
 
 
-class SqliteLoggerException(Exception):
-    """
-    This exception is raised for errors that occur when processing
-    SQLite files.
-
-    It has no custom implementation. It is here to provide a class that
-    can be specifically caught in an except statement.
-
-    See also: https://docs.python.org/3/library/exceptions.html
-    """
-    pass
-
-
 class SqliteLogger:
     """
     This class is for storing error messages and result tables in a small
@@ -89,12 +78,17 @@ class SqliteLogger:
         """
         self.db_filename = db_filename
 
-    def _create_tables(self):
+    def create_tables(self):
         """
-        The starting underscore in the method name means that it should
-        not be called except by __init__().
+        This opens the database and creates tables so that records can be
+        inserted later. It won't delete data that already exists in the
+        database.
 
-        This opens the database and creates tables.
+        Raises
+        ------
+        SqliteLoggerException
+            A SqliteLoggerException is raised when there is an error
+            creating the database.
         """
         conn = None
         try:
@@ -103,7 +97,7 @@ class SqliteLogger:
                 for create_table_statement in create_table_statements:
                     conn.execute(create_table_statement)
         except sqlite3.Error as e:
-            raise SqliteLoggerException('SqliteLogger could not create the database file and tables.')
+            raise SqliteLoggerException(f'SqliteLogger: Could not create database and tables at {self.db_filename}')
         finally:
             if conn is not None:
                 conn.close()

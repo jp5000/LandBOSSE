@@ -184,6 +184,18 @@ class XlsxFileOperations:
         os.makedirs(path, exist_ok=True)
         return path
 
+    def sqlite_log_filename(self):
+        """
+        This creates the absolute path names for SQLite log files.
+
+        Returns
+        -------
+        str
+            Absolute file name of the SQLite log file.
+        """
+        path = os.path.join(self.landbosse_output_dir(), 'execution_log.sqlite')
+        return path
+
     def copy_input_data(self):
         """
         This copies all input data to the outputs folder. The input data it copies
